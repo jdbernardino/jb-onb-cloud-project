@@ -24,12 +24,16 @@ public class AddEntryController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String firstname = req.getParameter("firstname");
-		String lastname = req.getParameter("lastname");
-		String money = req.getParameter("money");
+		String firstname = returnStringOrDefault(req.getParameter("firstname"), "");
+		String lastname = returnStringOrDefault(req.getParameter("lastname"), "");
+		String money = returnStringOrDefault(req.getParameter("money"), "0");
 		
 		service.save(firstname, lastname, new BigDecimal(money));
 		
 		resp.sendRedirect("/");
+	}
+	
+	private String returnStringOrDefault(String string, String defaultString){
+		return string != null ? string : defaultString;
 	}
 }
