@@ -19,7 +19,9 @@ public class AddEntryController extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		service = (BalanceEntryService) getServletContext().getAttribute("service");
+		if(service == null){
+			service = (BalanceEntryService) getServletContext().getAttribute("service");
+		}
 	}
 
 	@Override
@@ -31,11 +33,6 @@ public class AddEntryController extends HttpServlet {
 		service.save(firstname, lastname, new BigDecimal(money));
 		
 		resp.sendRedirect("/");
-	}
-	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doPost(req, resp);
 	}
 	
 	private String returnStringOrDefault(String string, String defaultString){
