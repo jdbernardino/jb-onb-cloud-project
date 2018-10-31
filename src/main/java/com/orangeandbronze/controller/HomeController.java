@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.orangeandbronze.service.BalanceEntryDTO;
 import com.orangeandbronze.service.BalanceEntryService;
+import com.orangeandbronze.service.BalanceEntryServiceImpl;
 
 @WebServlet({"/",""})
 public class HomeController extends HttpServlet{
@@ -22,6 +23,9 @@ public class HomeController extends HttpServlet{
 	public void init() throws ServletException {
 		super.init();
 		service = (BalanceEntryService) getServletContext().getAttribute("service");
+		if(service == null){
+			service = new BalanceEntryServiceImpl();
+		}
 	}
 	
 	@Override

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.orangeandbronze.service.BalanceEntryService;
+import com.orangeandbronze.service.BalanceEntryServiceImpl;
 
 @WebServlet("/add")
 public class AddEntryController extends HttpServlet {
@@ -19,8 +20,9 @@ public class AddEntryController extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		super.init();
+		service = (BalanceEntryService) getServletContext().getAttribute("service");
 		if(service == null){
-			service = (BalanceEntryService) getServletContext().getAttribute("service");
+			service = new BalanceEntryServiceImpl();
 		}
 	}
 
