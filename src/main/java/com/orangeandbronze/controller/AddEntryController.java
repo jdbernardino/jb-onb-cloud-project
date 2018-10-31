@@ -33,6 +33,11 @@ public class AddEntryController extends HttpServlet {
 		resp.sendRedirect("/");
 	}
 	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
+	}
+	
 	private String returnStringOrDefault(String string, String defaultString){
 		return string != null ? string : defaultString;
 	}
