@@ -30,6 +30,6 @@ public class AddEntryController extends HttpServlet {
 		
 		service.save(firstname, lastname, new BigDecimal(money));
 		
-		req.getRequestDispatcher("/").forward(req, resp);
+		resp.sendRedirect("/");
 	}
 }
