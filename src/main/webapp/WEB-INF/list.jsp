@@ -8,7 +8,7 @@
 <title>Balance Entries</title>
 </head>
 <body>
-	<form action="add" method="post">
+	<form action="${pageContext.request.contextPath}/add" method="post">
 		Firstname: <input type="text" name="firstname"> <br />
 		Lastname: <input type="text" name="lastname"> <br />
 		Money:<input type="number" name="money"> <br />

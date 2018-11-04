@@ -8,7 +8,7 @@
 <title>Balance Entries</title>
 </head>
 <body>
-	<form action="list" method="post">
+	<form action="${pageContext.request.contextPath}/list" method="post">
 		<input type="submit" value="Proceed to balance entry list." />
 	</form>
 </body>
