@@ -25,7 +25,7 @@ public class BalanceEntryDAO implements BalanceEntryRepository {
 			    "jdbc:postgresql://google/%s?socketFactory=com.google.cloud.sql.postgres.SocketFactory"
 			        + "&cloudSqlInstance=%s",
 			    "eden-project-db",
-			    "eden-project");
+			    "edenproject-aacf3:asia-southeast1:eden-project");
 		PGSimpleDataSource ds = new PGSimpleDataSource();
 		ds.setDatabaseName(jdbcUrl);
 		ds.setUser("postgres");
