@@ -8,33 +8,8 @@
 <title>Balance Entries</title>
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/add" method="post">
-		Firstname: <input type="text" name="firstname"> <br />
-		Lastname: <input type="text" name="lastname"> <br />
-		Money:<input type="number" name="money"> <br />
-		<input type="submit" value="Submit" />
+	<form action="list" method="post">
+		<input type="submit" value="Proceed to balance entry list." />
 	</form>
-	<br />
-	<c:choose>
-		<c:when test="${entries == null || entries.size() < 1} ">
-			<p>There are no entries to display.</p>
-		</c:when>
-		<c:otherwise>
-			<table>
-				<tr>
-					<th>Firstname</th>
-					<th>Lastname</th>
-					<th>Money</th>
-				</tr>
-				<c:forEach var="entry" items="${entries}">
-            		<tr>
-                		<td>${entry.firstname }</td>
-                		<td>${entry.lastname }</td>
-                		<td>${entry.money }</td>
-            		</tr>
-        		</c:forEach>
-			</table>
-		</c:otherwise>
-	</c:choose>
 </body>
 </html>

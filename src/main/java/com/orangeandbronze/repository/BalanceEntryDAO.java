@@ -38,6 +38,7 @@ public class BalanceEntryDAO implements BalanceEntryRepository {
 				BalanceEntry entry = new BalanceEntry(rs.getString("id"), rs.getString("firstname"),
 						rs.getString("lastname"), rs.getBigDecimal("money"), rs.getTimestamp("timestamp").toInstant());
 				entries.add(entry);
+				System.out.println(entry);
 			}
 		} catch (SQLException e) {
 			throw new EntryStorageException("Problem connecting to database.", e);

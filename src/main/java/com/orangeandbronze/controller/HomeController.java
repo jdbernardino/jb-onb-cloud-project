@@ -14,7 +14,7 @@ import com.orangeandbronze.service.BalanceEntryDTO;
 import com.orangeandbronze.service.BalanceEntryService;
 import com.orangeandbronze.service.BalanceEntryServiceImpl;
 
-@WebServlet({"/",""})
+@WebServlet("/list")
 public class HomeController extends HttpServlet{
 	
 	private BalanceEntryService service;
@@ -22,22 +22,16 @@ public class HomeController extends HttpServlet{
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		service = (BalanceEntryService) getServletContext().getAttribute("service");
 		if(service == null){
 			service = new BalanceEntryServiceImpl();
 		}
 	}
 	
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		List<BalanceEntryDTO> entries = service.findAll();
 		session.setAttribute("entries", entries);
-		req.getRequestDispatcher("index.jsp").forward(req, resp);
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doGet(req, resp);
+		req.getRequestDispatcher("list.jsp").forward(req, resp);
 	}
 }
