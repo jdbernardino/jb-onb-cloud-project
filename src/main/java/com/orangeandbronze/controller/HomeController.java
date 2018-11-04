@@ -34,4 +34,9 @@ public class HomeController extends HttpServlet{
 		session.setAttribute("entries", entries);
 		req.getRequestDispatcher("/WEB-INF/list.jsp").forward(req, resp);
 	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
+	}
 }
