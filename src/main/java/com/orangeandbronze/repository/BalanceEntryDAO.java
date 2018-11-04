@@ -14,13 +14,18 @@ import java.util.List;
 import com.orangeandbronze.domain.BalanceEntry;
 
 public class BalanceEntryDAO implements BalanceEntryRepository {
+	private static final String JDBC_URL = "jdbc:postgresql://google/eden-project-db"
+			+ "?useSSL=false&amp;"
+			+ "socketFactoryArg=edenproject-aacf3:asia-southeast1:eden-project&amp;"
+			+ "socketFactory=com.google.cloud.sql.postgres.SocketFactory&amp;"
+			+ "user=eden-user&amp;"
+			+ "password=eden-user";
 
 	private final Connection conn;
 
 	public BalanceEntryDAO() {
 		try {
-			String url = System.getProperty("cloudsql");
-			conn = DriverManager.getConnection(url);
+			conn = DriverManager.getConnection(JDBC_URL);
 		} catch (SQLException e) {
 			throw new EntryStorageException("Problem connecting to database.", e);
 		}
