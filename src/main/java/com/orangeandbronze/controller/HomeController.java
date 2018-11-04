@@ -32,6 +32,6 @@ public class HomeController extends HttpServlet{
 		HttpSession session = req.getSession();
 		List<BalanceEntryDTO> entries = service.findAll();
 		session.setAttribute("entries", entries);
-		req.getRequestDispatcher("list.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/list.jsp").forward(req, resp);
 	}
 }
