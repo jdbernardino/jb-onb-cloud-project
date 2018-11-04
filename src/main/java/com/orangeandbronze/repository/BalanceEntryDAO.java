@@ -1,6 +1,7 @@
 package com.orangeandbronze.repository;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,34 +11,22 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
-import org.postgresql.ds.PGSimpleDataSource;
-
 import com.orangeandbronze.domain.BalanceEntry;
 
 public class BalanceEntryDAO implements BalanceEntryRepository {
 
-	private final DataSource ds;
-
-	public BalanceEntryDAO() {
-		String jdbcUrl = String.format(
+	private static final String JDBC_URL = String.format(
 			    "jdbc:postgresql://google/%s?socketFactory=com.google.cloud.sql.postgres.SocketFactory"
 			        + "&cloudSqlInstance=%s",
 			    "eden-project-db",
 			    "edenproject-aacf3:asia-southeast1:eden-project");
-		PGSimpleDataSource ds = new PGSimpleDataSource();
-		ds.setDatabaseName(jdbcUrl);
-		ds.setUser("postgres");
-		ds.setPassword("postgres");
-
-		this.ds = ds;
-	}
+	private static final String USERNAME = "postgres";
+	private static final String PASSWORD = "postgres";
 
 	@Override
 	public List<BalanceEntry> findAll() {
 		List<BalanceEntry> entries = new ArrayList<>();
-		try (Connection conn = ds.getConnection();
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
 				PreparedStatement stmt = conn.prepareStatement("SELECT * FROM balance_entry ORDER BY timestamp DESC");
 				ResultSet rs = stmt.executeQuery();) {
 			while (rs.next()) {
@@ -56,7 +45,7 @@ public class BalanceEntryDAO implements BalanceEntryRepository {
 
 	@Override
 	public void save(BalanceEntry entry) {
-		try (Connection conn = ds.getConnection();
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
 				PreparedStatement stmt = conn.prepareStatement(
 						"INSERT INTO balance_entry (id, firstname, lastname, money, timestamp) VALUES (?, ?, ?, ?, ?)");) {
 			stmt.setString(1, entry.getId());
