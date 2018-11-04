@@ -17,7 +17,7 @@ public class BalanceEntryDAO implements BalanceEntryRepository {
 	private static final String JDBC_URL = "jdbc:postgresql://google/eden-project-db"
 			+ "?useSSL=false&socketFactoryArg=edenproject-aacf3:asia-southeast1:eden-project"
 			+ "&socketFactory=com.google.cloud.sql.postgres.SocketFactory"
-			+ "&user=eden-user&password=eden-user";
+			+ "&user=postgres&password=postgres";
 
 	private final Connection conn;
 
