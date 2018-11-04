@@ -15,16 +15,16 @@ import com.orangeandbronze.domain.BalanceEntry;
 public class BalanceEntryRepositoryFileImpl implements BalanceEntryRepository {
 	
 	private static final String FILENAME = "SampleRepo.txt";
-	private static final File FILE_REPO = new File(FILENAME);
+	private static final File REPO_FILE = new File(FILENAME);
 
 	@Override
 	public List<BalanceEntry> findAll() {
 		List<BalanceEntry> entries = new ArrayList<>();
-		if(!FILE_REPO.exists() || !FILE_REPO.isFile()){
+		if(!isRepoFileExisting()){
 			return entries;
 		}
 		
-		try (BufferedReader reader = new BufferedReader(new FileReader(FILENAME))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader(REPO_FILE))) {
 			entries = reader.lines().map(BalanceEntry::stringToEntity).collect(Collectors.toList());
 		} catch (IOException e) {
 			throw new EntryStorageException("There is a problem reading " + FILENAME, e);
@@ -35,10 +35,28 @@ public class BalanceEntryRepositoryFileImpl implements BalanceEntryRepository {
 
 	@Override
 	public void save(BalanceEntry entry) {
-		try (PrintWriter writer = new PrintWriter(new FileWriter(FILENAME, FILE_REPO.exists() && FILE_REPO.isFile()))){
+		if(!isRepoFileExisting()){
+			setupRepoFile();
+		}
+		
+		try (PrintWriter writer = new PrintWriter(new FileWriter(REPO_FILE, isRepoFileExisting()))){
 			writer.println(entry);
 		} catch (IOException e) {
 			throw new EntryStorageException("There is a problem writing to " + FILENAME, e);
+		}
+	}
+	
+	private boolean isRepoFileExisting(){
+		return REPO_FILE.exists() && REPO_FILE.isFile();
+	}
+	
+	private void setupRepoFile(){
+		try {
+			REPO_FILE.setReadable(true);
+			REPO_FILE.setWritable(true);
+			REPO_FILE.createNewFile();
+		} catch (IOException e) {
+			throw new EntryStorageException("There is a problem setting up " + FILENAME, e);
 		}
 	}
 
