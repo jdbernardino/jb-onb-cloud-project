@@ -6,13 +6,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<properties>
-		<INSTANCE_CONNECTION_NAME>edenproject-aacf3:asia-southeast1:eden-project</INSTANCE_CONNECTION_NAME>
-		<user>eden-user</user>
-		<password>eden-user</password>
-		<database>eden-project-db</database>
-	</properties>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -65,15 +58,15 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.google.cloud.sql</groupId>
-			<artifactId>postgres-socket-factory</artifactId>
-			<version>1.0.11</version>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.2</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.4.1209</version>
+			<groupId>com.google.cloud.sql</groupId>
+			<artifactId>postgres-socket-factory</artifactId>
+			<version>1.0.9</version>
 		</dependency>
 
 	</dependencies>
