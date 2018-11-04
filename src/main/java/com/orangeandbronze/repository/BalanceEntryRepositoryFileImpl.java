@@ -14,7 +14,7 @@ import com.orangeandbronze.domain.BalanceEntry;
 
 public class BalanceEntryRepositoryFileImpl implements BalanceEntryRepository {
 	
-	private static final String FILENAME = "SampleRepo.txt";
+	private static final String FILENAME = "repo/SampleRepo.txt";
 	private static final File REPO_FILE = new File(FILENAME);
 
 	@Override
