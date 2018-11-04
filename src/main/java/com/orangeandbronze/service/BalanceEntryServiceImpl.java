@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Objects;
 
 import com.orangeandbronze.domain.BalanceEntry;
+import com.orangeandbronze.repository.BalanceEntryDAO;
 import com.orangeandbronze.repository.BalanceEntryRepository;
-import com.orangeandbronze.repository.BalanceEntryRepositoryFileImpl;
 
 public class BalanceEntryServiceImpl implements BalanceEntryService {
 
@@ -15,14 +15,13 @@ public class BalanceEntryServiceImpl implements BalanceEntryService {
 
 	public BalanceEntryServiceImpl() {
 		if (Objects.isNull(repository)) {
-			repository = new BalanceEntryRepositoryFileImpl();
+			repository = new BalanceEntryDAO();
 		}
 	}
 
 	@Override
 	public List<BalanceEntryDTO> findAll() {
 		List<BalanceEntry> entries = repository.findAll();
-		Collections.sort(entries, Collections.reverseOrder());
 		return BalanceEntryDTO.convertEntities(entries);
 	}
 

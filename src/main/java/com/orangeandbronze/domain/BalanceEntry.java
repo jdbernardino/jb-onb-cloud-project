@@ -34,6 +34,10 @@ public class BalanceEntry implements Comparable<BalanceEntry> {
 	public BalanceEntry(String firstname, String lastname, BigDecimal money) {
 		this(firstname, lastname, money, Instant.now());
 	}
+	
+	public String getId() {
+		return id;
+	}
 
 	public String getFirstname() {
 		return firstname;
@@ -45,6 +49,10 @@ public class BalanceEntry implements Comparable<BalanceEntry> {
 
 	public BigDecimal getMoney() {
 		return money;
+	}
+	
+	public Instant getTimestamp() {
+		return timestamp;
 	}
 
 	@Override
