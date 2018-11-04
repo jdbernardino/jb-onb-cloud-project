@@ -1,7 +1,6 @@
 package com.orangeandbronze.repository;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,30 +10,33 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.postgresql.ds.PGSimpleDataSource;
+
 import com.orangeandbronze.domain.BalanceEntry;
 
 public class BalanceEntryDAO implements BalanceEntryRepository {
-	private static final String JDBC_URL = "jdbc:postgresql://google/eden-project-db"
-			+ "?useSSL=false&amp;"
-			+ "socketFactoryArg=edenproject-aacf3:asia-southeast1:eden-project&amp;"
-			+ "socketFactory=com.google.cloud.sql.postgres.SocketFactory&amp;"
-			+ "user=eden-user&amp;"
-			+ "password=eden-user";
+	private static final String JDBC_URL = "jdbc:postgresql://35.198.233.199/eden-project-db";
+	private static final String USERNAME = "eden-user";
+	private static final String PASSWORD = "eden-user";
 
-	private final Connection conn;
+	private final DataSource ds;
 
 	public BalanceEntryDAO() {
-		try {
-			conn = DriverManager.getConnection(JDBC_URL);
-		} catch (SQLException e) {
-			throw new EntryStorageException("Problem connecting to database.", e);
-		}
+		PGSimpleDataSource ds = new PGSimpleDataSource();
+		ds.setUrl(JDBC_URL);
+		ds.setUser(USERNAME);
+		ds.setPassword(PASSWORD);
+
+		this.ds = ds;
 	}
 
 	@Override
 	public List<BalanceEntry> findAll() {
 		List<BalanceEntry> entries = new ArrayList<>();
-		try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM balance_entry ORDER BY timestamp DESC");
+		try (Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement("SELECT * FROM balance_entry ORDER BY timestamp DESC");
 				ResultSet rs = stmt.executeQuery();) {
 			while (rs.next()) {
 				BalanceEntry entry = new BalanceEntry(rs.getString("id"), rs.getString("firstname"),
@@ -49,8 +51,9 @@ public class BalanceEntryDAO implements BalanceEntryRepository {
 
 	@Override
 	public void save(BalanceEntry entry) {
-		try (PreparedStatement stmt = conn.prepareStatement(
-				"INSERT INTO balance_entry (id, firstname, lastname, money, timestamp) VALUES (?, ?, ?, ?, ?)");) {
+		try (Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(
+						"INSERT INTO balance_entry (id, firstname, lastname, money, timestamp) VALUES (?, ?, ?, ?, ?)");) {
 			stmt.setString(1, entry.getId());
 			stmt.setString(2, entry.getFirstname());
 			stmt.setString(3, entry.getLastname());
