@@ -1,12 +1,13 @@
 package com.orangeandbronze.service;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.orangeandbronze.domain.BalanceEntry;
 
-public class BalanceEntryDTO {
+public class BalanceEntryDTO implements Serializable{
 
 	private String firstname;
 
