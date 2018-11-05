@@ -31,7 +31,7 @@ public class AddEntryController extends HttpServlet {
 		
 		service.save(firstname, lastname, new BigDecimal(money));
 		
-		req.getRequestDispatcher("/list").forward(req, resp);
+		resp.sendRedirect("/list");
 	}
 	
 	private String returnStringOrDefault(String string, String defaultString){
