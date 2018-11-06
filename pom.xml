@@ -6,6 +6,15 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
+	<properties>
+		<projectID>myProjectID</projectID>
+		<bookshelf.storageType>datastore</bookshelf.storageType>
+		<sql.dbName>bookshelf</sql.dbName>
+		<sql.instanceName>${projectID}:us-central1:${sql.dbName}</sql.instanceName>
+		<sql.userName>root</sql.userName>
+		<sql.password>myRootPassword1234</sql.password>
+	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -57,16 +66,10 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>42.2.2</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.cloud.sql</groupId>
-			<artifactId>postgres-socket-factory</artifactId>
-			<version>1.0.9</version>
+		<dependency>                        <!-- Google Cloud Client Library for Java -->
+			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud</artifactId>
+			<version>0.47.0-alpha</version>
 		</dependency>
 
 	</dependencies>
