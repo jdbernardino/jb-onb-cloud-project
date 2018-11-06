@@ -1,8 +1,8 @@
 package com.orangeandbronze.domain;
 
 import java.math.BigDecimal;
-
-import com.google.cloud.Timestamp;
+import java.time.Instant;
+import java.time.ZonedDateTime;
 
 public class BalanceEntry implements Comparable<BalanceEntry> {
 	
@@ -16,9 +16,9 @@ public class BalanceEntry implements Comparable<BalanceEntry> {
 
 	private final BigDecimal money;
 
-	private final Timestamp timestamp;
+	private final Instant timestamp;
 	
-	public BalanceEntry(Long id, String firstname, String lastname, BigDecimal money, Timestamp timestamp) {
+	public BalanceEntry(Long id, String firstname, String lastname, BigDecimal money, Instant timestamp) {
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -26,12 +26,16 @@ public class BalanceEntry implements Comparable<BalanceEntry> {
 		this.timestamp = timestamp;
 	}
 	
-	public BalanceEntry(String firstname, String lastname, BigDecimal money, Timestamp timestamp) {
+	public BalanceEntry(Long id, String firstname, String lastname, BigDecimal money, String timestamp) {
+		this(id, firstname, lastname, money, ZonedDateTime.parse(timestamp).toInstant());
+	}
+	
+	public BalanceEntry(String firstname, String lastname, BigDecimal money, Instant timestamp) {
 		this(0L, firstname, lastname, money, timestamp);
 	}
 
 	public BalanceEntry(String firstname, String lastname, BigDecimal money) {
-		this(firstname, lastname, money, Timestamp.now());
+		this(firstname, lastname, money, Instant.now());
 	}
 	
 	public Long getId() {
@@ -50,7 +54,7 @@ public class BalanceEntry implements Comparable<BalanceEntry> {
 		return money;
 	}
 	
-	public Timestamp getTimestamp() {
+	public Instant getTimestamp() {
 		return timestamp;
 	}
 

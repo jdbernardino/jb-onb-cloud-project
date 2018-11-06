@@ -43,7 +43,7 @@ public class BalanceEntryDatastoreImpl implements BalanceEntryRepository {
 	}
 	
 	private BalanceEntry entityToEntry(Entity entity){
-		return new BalanceEntry(entity.getKey().getId(), entity.getString("firstname"), entity.getString("lastname"), new BigDecimal(entity.getString("money")), entity.getTimestamp("timestamp"));
+		return new BalanceEntry(entity.getKey().getId(), entity.getString("firstname"), entity.getString("lastname"), new BigDecimal(entity.getString("money")), entity.getString("timestamp"));
 	}
 	
 	private List<BalanceEntry> entitiesToEntries(QueryResults<Entity> resultList){
