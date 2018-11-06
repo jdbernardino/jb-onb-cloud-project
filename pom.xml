@@ -6,15 +6,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<properties>
-		<projectID>myProjectID</projectID>
-		<bookshelf.storageType>datastore</bookshelf.storageType>
-		<sql.dbName>bookshelf</sql.dbName>
-		<sql.instanceName>${projectID}:us-central1:${sql.dbName}</sql.instanceName>
-		<sql.userName>root</sql.userName>
-		<sql.password>myRootPassword1234</sql.password>
-	</properties>
-
 	<build>
 		<plugins>
 			<plugin>
