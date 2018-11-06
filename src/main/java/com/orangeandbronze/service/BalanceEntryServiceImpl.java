@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.orangeandbronze.domain.BalanceEntry;
-import com.orangeandbronze.repository.BalanceEntryDAO;
+import com.orangeandbronze.repository.BalanceEntryDatastoreImpl;
 import com.orangeandbronze.repository.BalanceEntryRepository;
 
 public class BalanceEntryServiceImpl implements BalanceEntryService {
@@ -14,7 +14,7 @@ public class BalanceEntryServiceImpl implements BalanceEntryService {
 
 	public BalanceEntryServiceImpl() {
 		if (Objects.isNull(repository)) {
-			repository = new BalanceEntryDAO();
+			repository = new BalanceEntryDatastoreImpl();
 		}
 	}
 

@@ -1,15 +1,14 @@
 package com.orangeandbronze.domain;
 
 import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.util.UUID;
+
+import com.google.cloud.Timestamp;
 
 public class BalanceEntry implements Comparable<BalanceEntry> {
 	
 	private static final String DELIMITER = ";";
 
-	private final String id;
+	private final Long id;
 
 	private final String firstname;
 
@@ -17,9 +16,9 @@ public class BalanceEntry implements Comparable<BalanceEntry> {
 
 	private final BigDecimal money;
 
-	private final Instant timestamp;
+	private final Timestamp timestamp;
 	
-	public BalanceEntry(String id, String firstname, String lastname, BigDecimal money, Instant timestamp) {
+	public BalanceEntry(Long id, String firstname, String lastname, BigDecimal money, Timestamp timestamp) {
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -27,15 +26,15 @@ public class BalanceEntry implements Comparable<BalanceEntry> {
 		this.timestamp = timestamp;
 	}
 	
-	public BalanceEntry(String firstname, String lastname, BigDecimal money, Instant timestamp) {
-		this(UUID.randomUUID().toString(), firstname, lastname, money, timestamp);
+	public BalanceEntry(String firstname, String lastname, BigDecimal money, Timestamp timestamp) {
+		this(0L, firstname, lastname, money, timestamp);
 	}
 
 	public BalanceEntry(String firstname, String lastname, BigDecimal money) {
-		this(firstname, lastname, money, Instant.now());
+		this(firstname, lastname, money, Timestamp.now());
 	}
 	
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -51,7 +50,7 @@ public class BalanceEntry implements Comparable<BalanceEntry> {
 		return money;
 	}
 	
-	public Instant getTimestamp() {
+	public Timestamp getTimestamp() {
 		return timestamp;
 	}
 
@@ -61,11 +60,6 @@ public class BalanceEntry implements Comparable<BalanceEntry> {
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
-	}
-	
-	public static BalanceEntry stringToEntity(String fromString){
-		String[] info = fromString.split(DELIMITER);
-		return new BalanceEntry(info[0], info[1], info[2], new BigDecimal(info[3]), ZonedDateTime.parse(info[4]).toInstant());
 	}
 
 	@Override
