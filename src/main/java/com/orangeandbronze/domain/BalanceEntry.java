@@ -61,7 +61,7 @@ public class BalanceEntry implements Comparable<BalanceEntry> {
 		return timestamp;
 	}
 
-	public String getMiddlename() { return middlename; }
+	public String getMiddleName() { return middlename; }
 
 	@Override
 	public int hashCode() {
