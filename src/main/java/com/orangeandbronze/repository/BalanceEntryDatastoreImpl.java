@@ -42,8 +42,9 @@ public class BalanceEntryDatastoreImpl implements BalanceEntryRepository {
 				.set("firstname", entry.getFirstname())
 				.set("lastname", entry.getLastname())
 				.set("money", entry.getMoney().toString())
-				.set("timestamp", entry.getTimestamp().toString()).build()
-                .set("middleName", entry.getMiddleName());
+				.set("timestamp", entry.getTimestamp().toString())
+                .set("middleName", entry.getMiddleName())
+                .build();
 		datastore.add(incEntryEntity);
 	}
 	
