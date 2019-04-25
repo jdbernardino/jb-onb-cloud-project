@@ -22,7 +22,7 @@ public class BalanceEntryDatastoreImpl implements BalanceEntryRepository {
 
 	public BalanceEntryDatastoreImpl() {
 		datastore = DatastoreOptions.getDefaultInstance().getService();
-		keyFactory = datastore.newKeyFactory().setKind("balance_entry");
+		keyFactory = datastore.newKeyFactory().setKind("new_kind");
 	}
 
 	@Override
