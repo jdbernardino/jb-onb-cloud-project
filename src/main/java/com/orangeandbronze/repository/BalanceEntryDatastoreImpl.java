@@ -27,8 +27,10 @@ public class BalanceEntryDatastoreImpl implements BalanceEntryRepository {
 
 	@Override
 	public List<BalanceEntry> findAll() {
-		Query<Entity> query = Query.newEntityQueryBuilder().setKind("balance_entry")
-				.setOrderBy(OrderBy.desc("timestamp")).build();
+		Query<Entity> query = Query.newEntityQueryBuilder()
+				.setKind("balance_entry")
+				.setOrderBy(OrderBy.desc("timestamp"))
+				.build();
 		QueryResults<Entity> resultList = datastore.run(query);
 		return entitiesToEntries(resultList);
 	}
@@ -36,9 +38,12 @@ public class BalanceEntryDatastoreImpl implements BalanceEntryRepository {
 	@Override
 	public void save(BalanceEntry entry) {
 		IncompleteKey key = keyFactory.newKey();
-		FullEntity<IncompleteKey> incEntryEntity = Entity.newBuilder(key).set("firstname", entry.getFirstname())
-				.set("lastname", entry.getLastname()).set("money", entry.getMoney().toString())
-				.set("timestamp", entry.getTimestamp().toString()).build();
+		FullEntity<IncompleteKey> incEntryEntity = Entity.newBuilder(key)
+				.set("firstname", entry.getFirstname())
+				.set("lastname", entry.getLastname())
+				.set("money", entry.getMoney().toString())
+				.set("timestamp", entry.getTimestamp().toString()).build()
+                .set("middleName", entry.getMiddleName());
 		datastore.add(incEntryEntity);
 	}
 	

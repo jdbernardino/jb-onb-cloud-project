@@ -14,6 +14,8 @@ public class BalanceEntry implements Comparable<BalanceEntry> {
 
 	private final String lastname;
 
+	private final String middlename;
+
 	private final BigDecimal money;
 
 	private final Instant timestamp;
@@ -24,6 +26,7 @@ public class BalanceEntry implements Comparable<BalanceEntry> {
 		this.lastname = lastname;
 		this.money = money;
 		this.timestamp = timestamp;
+		this.middlename = "this middle name";
 	}
 	
 	public BalanceEntry(Long id, String firstname, String lastname, BigDecimal money, String timestamp) {
@@ -57,6 +60,8 @@ public class BalanceEntry implements Comparable<BalanceEntry> {
 	public Instant getTimestamp() {
 		return timestamp;
 	}
+
+	public String getMiddlename() { return middlename; }
 
 	@Override
 	public int hashCode() {
